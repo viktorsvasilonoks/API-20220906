@@ -1,0 +1,16 @@
+[{
+	"id": "test",
+	"username": "ssys",
+	"score": 10,
+	"active": true
+}, {
+	"id": "test2",
+	"username": "ssys2",
+	"score": 2,
+	"active": false
+}, {
+	"id": "test3",
+	"username": "ssys3",
+	"score": 7,
+	"active": false
+}]
