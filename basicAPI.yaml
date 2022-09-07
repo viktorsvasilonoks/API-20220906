@@ -18,6 +18,26 @@ servers:
   - url: https://my-json-server.typicode.com/bearc0025/api
     variables: {}
     description: my fake api server on github
+  - url: '{scheme}://www.example.com:{port}/{version}'
+    variables:
+      scheme:
+        default: https
+        enum:
+          - http
+          - htps
+        description: protocol scheme
+      version:
+        default: v2
+        enum:
+          - v2
+          - v1
+        description: version of api
+      port:
+        default: '8080'
+        enum:
+          - '8080'
+          - '8000'
+        description: server port
 paths:
   /users:
     summary: user level operations
@@ -42,6 +62,25 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/UserRespBody'
+        default:
+          description: Default error sample response
+      tags:
+        - users
+  /users/{userId}:
+    summary: specific user operation
+    description: fetch, update, delete user
+    get:
+      summary: fetch user
+      description: fetch user by id
+      operationId: fetchUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 1234abc
+      responses:
         default:
           description: Default error sample response
       tags:
@@ -86,9 +125,9 @@ components:
           example: true
     FullUser:
       allOf:
-      - $ref: '#/components/schemas/PostNewUser'
-      - type: object
-        properties:
-          id:
-            type: string
-            example: 1234asdf
+        - $ref: '#/components/schemas/PostNewUser'
+        - type: object
+          properties:
+            id:
+              type: string
+              example: 1234asdf
