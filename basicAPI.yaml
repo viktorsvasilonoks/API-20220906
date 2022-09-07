@@ -74,12 +74,7 @@ paths:
       description: fetch user by id
       operationId: fetchUser
       parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
-            example: 1234abc
+        - $ref: '#/components/parameters/UserId'
       responses:
         '200':
           $ref: '#/components/responses/UserRespBody'
@@ -88,6 +83,14 @@ paths:
       tags:
         - users
 components:
+  parameters:
+    UserId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 1234abc  
   responses:
     UserArrayResponseBody:
       description: user array
