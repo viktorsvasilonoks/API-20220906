@@ -81,6 +81,8 @@ paths:
             type: string
             example: 1234abc
       responses:
+        '200':
+          $ref: '#/components/responses/UserRespBody'
         default:
           description: Default error sample response
       tags:
