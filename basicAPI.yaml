@@ -12,6 +12,9 @@ info:
     name: License
     url: https://example.com/license
 servers:
+  - url: http://localhost:3000/
+    variables: {}
+    description: fake local server
   - url: https://my-json-server.typicode.com/bearc0025/api
     variables: {}
     description: API Design and Development 2022-09-06
@@ -37,23 +40,6 @@ paths:
           description: Default error sample response
       tags:
         - users
-components:
-  schemas:
-    FullUser:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        username:
-          type: string
-          example: bear
-        score:
-          type: integer
-          example: 55
-        active:
-          type: boolean
-          example: true
   /attempts:
     summary: attempts level operations
     description: fetch attempts, create new attempts
@@ -82,3 +68,20 @@ components:
           description: Default error sample response
       tags:
         - attempts
+components:
+  schemas:
+    FullUser:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        username:
+          type: string
+          example: bear
+        score:
+          type: integer
+          example: 55
+        active:
+          type: boolean
+          example: true
