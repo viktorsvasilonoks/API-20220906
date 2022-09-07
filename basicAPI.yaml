@@ -40,6 +40,21 @@ paths:
           description: Default error sample response
       tags:
         - users
+    post:
+      summary: create user
+      description: sore user on server
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostNewUser'  
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - users
   /attempts:
     summary: attempts level operations
     description: fetch attempts, create new attempts
@@ -70,12 +85,9 @@ paths:
         - attempts
 components:
   schemas:
-    FullUser:
+    PostNewUser:
       type: object
       properties:
-        id:
-          type: string
-          example: abc123
         username:
           type: string
           example: bear
@@ -85,3 +97,20 @@ components:
         active:
           type: boolean
           example: true
+    FullUser:
+      allOf:
+        - $ref: '#/components/schemas/PostNewUser'
+        - type: object
+          properties:
+            id:
+              type: string
+              example: abc123
+            username:
+              type: string
+              example: bear
+            score:
+              type: integer
+              example: 55
+            active:
+              type: boolean
+              example: true
