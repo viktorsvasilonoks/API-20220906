@@ -18,26 +18,22 @@ servers:
   - url: https://my-json-server.typicode.com/bearc0025/api
     variables: {}
     description: my fake api server on github
-  - url: '{scheme}://www.example.com:{port}/{version}'
+  - url: https://my-json-server.typicode.com/{gitaccount}/{reponame}
     variables:
-      scheme:
-        default: https
+      gitaccount:
+        default: bearc0025
         enum:
-          - http
-          - htps
-        description: protocol scheme
-      version:
-        default: v2
+          - bearc0025
+          - otheraccountname
+        description: various accounts
+      reponame:
+        default: api
         enum:
-          - v2
-          - v1
-        description: version of api
-      port:
-        default: '8080'
-        enum:
-          - '8080'
-          - '8000'
-        description: server port
+          - api
+          - other
+          - repo
+        description: repo name
+    description: server with variables
 paths:
   /users:
     summary: user level operations
@@ -67,14 +63,36 @@ paths:
       tags:
         - users
   /users/{userId}:
-    summary: specific user operation
-    description: fetch, update, delete user
+    summary: indiv user operations
+    description: get user, update user, delete user
+    parameters:
+      - $ref: '#/components/parameters/UserId'
     get:
       summary: fetch user
-      description: fetch user by id
+      description: returns user from server
       operationId: fetchUser
-      parameters:
-        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/UserRespBody'
+        default:
+          description: Default error sample response
+      tags:
+        - users
+    delete:
+      summary: delete a user
+      description: remove a user from the server
+      operationId: deleteUser
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - users
+    patch:
+      summary: update a user
+      description: update server data for user
+      operationId: updateUser
+      requestBody:
+        $ref: '#/components/requestBodies/UserPostBody'
       responses:
         '200':
           $ref: '#/components/responses/UserRespBody'
@@ -88,9 +106,10 @@ components:
       name: userId
       in: path
       required: true
+      description: user id
       schema:
         type: string
-        example: 1234abc  
+        example: 1234abc
   responses:
     UserArrayResponseBody:
       description: user array
@@ -125,6 +144,7 @@ components:
         score:
           type: integer
           example: 66
+          minimum: 0
         active:
           type: boolean
           example: true
